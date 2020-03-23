@@ -6,7 +6,7 @@ public class SlideShow {
     public static void main(String[] args) throws Exception
     {
         
-        File file = new File("C:\\Users\\joaom\\Desktop\\Curso\\IART\\" + args[0]);
+        File file = new File("input\\" + args[0]);
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
@@ -29,8 +29,21 @@ public class SlideShow {
             i++;
         }
         
-        System.out.println(numberOfPhotos);
-
         br.close();
+
+        ArrayList<Slide> slides = new ArrayList<Slide>();
+        
+        
+        for (int j = 0; j < horizontal.size(); j++) {
+            slides.add(new Slide(horizontal.get(j)));
+        }
+
+       
+        
+
+        Greddy g = new Greddy();
+
+        ArrayList<Slide> FirstSlideShow = g.greddyAproach(slides);
+
     }
 }
