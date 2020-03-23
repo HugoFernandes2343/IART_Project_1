@@ -2,10 +2,12 @@ public class Photo {
 
     private String direction;
     private Integer nTags;
+    private Integer index;
     private String[] tags;
 
-    public Photo(String data)
+    public Photo(String data, Integer index)
     {
+        this.index = index;
         String[] dt = data.split(" ");
 
         direction = dt[0];
@@ -31,6 +33,11 @@ public class Photo {
     public String[] getTags()
     {
         return tags;
+    }
+
+    public Integer getIndex()
+    {
+        return index;
     }
 
 }
