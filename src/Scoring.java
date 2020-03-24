@@ -16,13 +16,18 @@ public class Scoring
 
         int uncommon2 = getUncommonTags(tagsB, tagsA);
 
+        int score = getMinimumValue(common,uncommon1,uncommon2);
+
+        return score;
+    }
+
+    private static int getMinimumValue(int common, int uncommon1, int uncommon2) {
         if(common <= uncommon1 && common <= uncommon2)
             return common;
         else if(uncommon1 <= common && uncommon1 <= uncommon2)
             return uncommon1;
         else if(uncommon2 <= uncommon1 && uncommon2 <= common)
             return uncommon2;
-        
         return 0;
     }
 
@@ -50,12 +55,12 @@ public class Scoring
         return uncommon;
     }
 
-    public static int getTotalScoring(ArrayList<Slide> a)
+    public static int getTotalScoring(ArrayList<Slide> slideshow)
     {
         int temp = 0;
 
-        for (int i = 1; i < a.size(); i++) {
-            temp = temp + calculatePoints(a.get(i), a.get(i-1));
+        for (int i = 0; i < slideshow.size() - 1; i++) {
+            temp = temp + calculatePoints(slideshow.get(i), slideshow.get(i+1));
         }
 
         return temp;

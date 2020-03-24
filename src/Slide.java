@@ -22,9 +22,8 @@ public class Slide
         this.p1 = p1;
         this.p2 = p2;
 
-        tags = concatenateArrays(p1.getTags(), p2.getTags());
-
-
+        tags = p1.getTags();
+        tags.addAll(p2.getTags());
     }
 
     private ArrayList<String> concatenateArrays(String[] a, String[] b)
