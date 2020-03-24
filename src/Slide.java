@@ -48,4 +48,12 @@ public class Slide
     {
         return tags;
     }
+
+    public String getID()
+    {
+        String a = ""+p1.getIndex();
+        if(p2 != null)
+            a = a+" "+p2.getIndex();
+        return a;
+    }
 }
