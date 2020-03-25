@@ -14,19 +14,9 @@ public class SlideShow {
 
         createSlides();
 
-        ArrayList<Slide> FirstSlideShow = Greedy.greedyAproach(slides);
-
+        //ArrayList<Slide> FirstSlideShow = Greedy.greedyAproach(slides);
+        ArrayList<Slide> FirstSlideShow = HillClimbing.algorithm(slides);
         int score = Scoring.getTotalScoring(FirstSlideShow);
-
-        //TODO criar metodo de output para ficheiro
-        /*System.out.println("TEMPORARY OUTPUT Slideshow:");
-        for (int i = 0; i < FirstSlideShow.size(); i++) {
-            if(FirstSlideShow.get(i).p2==null) {
-                System.out.println(FirstSlideShow.get(i).p1.getIndex());
-            }else{
-                System.out.println(FirstSlideShow.get(i).p1.getIndex().toString() + FirstSlideShow.get(i).p2.getIndex().toString());
-            }
-        }*/
 
         writeInFile(FirstSlideShow);
 
