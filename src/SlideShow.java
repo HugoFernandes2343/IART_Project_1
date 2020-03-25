@@ -39,6 +39,7 @@ public class SlideShow {
                 break;
             case "3":
                 System.out.println("Hill Climbing was chosen!");
+                HillClimbing.algorithm(FirstSlideShow);
                 break;
             case "4":
                 System.out.println("Simulated Annealing was chosen!");
@@ -50,11 +51,8 @@ public class SlideShow {
                 System.out.println("no match");
         }
 
-
-
-
         int score = Scoring.getTotalScoring(FirstSlideShow);
-        
+
         writeInFile(FirstSlideShow);
 
         System.out.println("Score is: " + score);
