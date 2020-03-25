@@ -8,7 +8,11 @@ public class SlideShow {
 
     private static ArrayList<Photo> verticalPhotos = new ArrayList<Photo>();
     private static ArrayList<Photo> horizontalPhotos = new ArrayList<Photo>();
+
     private static ArrayList<Slide> slides = new ArrayList<Slide>();
+    private static ArrayList<Slide> finalSlideShow = new ArrayList<Slide>();
+
+    private static int score;
 
     public static void main(String[] args) throws Exception
     {
@@ -17,7 +21,7 @@ public class SlideShow {
 
         createSlides();
 
-        ArrayList<Slide> FirstSlideShow = GenerateRandomSlideshow(slides);
+        ArrayList<Slide> firstSlideShow = GenerateRandomSlideshow(slides);
 
         System.out.println("Choose your algorithm: 1 - Random SlideShow 2 - Greedy Approach 3 - Hill Climbing 4 - Simulated Annealing 5 - Genetic Algorithm");
         System.out.println("The algorithms will print different numbers to know if the optimization is running");
@@ -30,16 +34,19 @@ public class SlideShow {
         {
             case "1":
                 System.out.println("Random SlideShow was chosen!");
-                Scoring.getTotalScoring(FirstSlideShow);
-                writeInFile(FirstSlideShow);
+                finalSlideShow = firstSlideShow;
+                score = Scoring.getTotalScoring(firstSlideShow);
                 break;
             case "2":
                 System.out.println("Greedy Approach was chosen!");
-                Greedy.greedyAproach(FirstSlideShow);
+                finalSlideShow = Greedy.greedyApproach(slides);
+                //finalSlideShow = Greedy.greedyApproach(firstSlideShow);
+                score = Scoring.getTotalScoring(finalSlideShow);
                 break;
             case "3":
                 System.out.println("Hill Climbing was chosen!");
-                HillClimbing.algorithm(FirstSlideShow);
+                finalSlideShow = HillClimbing.algorithm(firstSlideShow);
+                score = Scoring.getTotalScoring(finalSlideShow);
                 break;
             case "4":
                 System.out.println("Simulated Annealing was chosen!");
@@ -51,9 +58,7 @@ public class SlideShow {
                 System.out.println("no match");
         }
 
-        int score = Scoring.getTotalScoring(FirstSlideShow);
-
-        writeInFile(FirstSlideShow);
+        writeInFile(finalSlideShow);
 
         System.out.println("Score is: " + score);
     }
@@ -61,7 +66,7 @@ public class SlideShow {
     private static ArrayList<Slide> GenerateRandomSlideshow(ArrayList<Slide> slides) {
 
         ArrayList<Slide> FirstSlideShow = new ArrayList<Slide>();
-        FirstSlideShow.addAll(slides);
+        FirstSlideShow = (ArrayList<Slide>) slides.clone();
 
         Collections.shuffle(FirstSlideShow);
 

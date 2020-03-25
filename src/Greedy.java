@@ -7,7 +7,7 @@ public class Greedy
     {
     }
 
-	public static ArrayList<Slide> greedyAproach(ArrayList<Slide> slides) {
+	public static ArrayList<Slide> greedyApproach(ArrayList<Slide> slides) {
 
         
         ArrayList<Slide> slideshow = new ArrayList<Slide>();    // Slideshow to be returned
