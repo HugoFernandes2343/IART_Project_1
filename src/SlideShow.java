@@ -1,5 +1,3 @@
-import sun.text.normalizer.CharTrie;
-
 import java.io.*;
 import java.util.ArrayList;
 
@@ -21,14 +19,17 @@ public class SlideShow {
         int score = Scoring.getTotalScoring(FirstSlideShow);
 
         //TODO criar metodo de output para ficheiro
-        System.out.println("TEMPORARY OUTPUT Slideshow:");
+        /*System.out.println("TEMPORARY OUTPUT Slideshow:");
         for (int i = 0; i < FirstSlideShow.size(); i++) {
             if(FirstSlideShow.get(i).p2==null) {
                 System.out.println(FirstSlideShow.get(i).p1.getIndex());
             }else{
                 System.out.println(FirstSlideShow.get(i).p1.getIndex().toString() + FirstSlideShow.get(i).p2.getIndex().toString());
             }
-        }
+        }*/
+
+        writeInFile(FirstSlideShow);
+
         System.out.println("Score is: " + score);
     }
 
@@ -102,6 +103,8 @@ public class SlideShow {
 
         int numberOfPhotos = Integer.parseInt(br.readLine());
 
+        System.out.println("Number of photos = " + numberOfPhotos);
+
         int i = 0;
 
         String st;
@@ -119,6 +122,18 @@ public class SlideShow {
         }
 
         br.close();
+    }
+
+    private static void writeInFile(ArrayList<Slide> Slideshow) throws IOException
+    {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output.txt"),"utf-8"))) 
+        {
+            writer.write(String.valueOf(Slideshow.size()) + "\n");
+
+            for (Slide slide : Slideshow) {
+                writer.write(slide.getID() + "\n");
+            }
+        }
     }
 
 
