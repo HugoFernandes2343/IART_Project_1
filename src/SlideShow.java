@@ -1,5 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class SlideShow {
 
@@ -14,23 +17,57 @@ public class SlideShow {
 
         createSlides();
 
-        ArrayList<Slide> FirstSlideShow = Greedy.greedyAproach(slides);
+        ArrayList<Slide> FirstSlideShow = GenerateRandomSlideshow(slides);
+
+        System.out.println("Choose your algorithm: 1 - Random SlideShow 2 - Greedy Approach 3 - Hill Climbing 4 - Simulated Annealing 5 - Genetic Algorithm");
+        System.out.println("The algorithms will print different numbers to know if the optimization is running");
+
+        // create a scanner so we can read the command-line input
+        Scanner scanner = new Scanner(System.in);
+        String alg = scanner.next();
+
+        switch(alg)
+        {
+            case "1":
+                System.out.println("Random SlideShow was chosen!");
+                Scoring.getTotalScoring(FirstSlideShow);
+                writeInFile(FirstSlideShow);
+                break;
+            case "2":
+                System.out.println("Greedy Approach was chosen!");
+                Greedy.greedyAproach(FirstSlideShow);
+                break;
+            case "3":
+                System.out.println("Hill Climbing was chosen!");
+                break;
+            case "4":
+                System.out.println("Simulated Annealing was chosen!");
+                break;
+            case "5":
+                System.out.println("Genetic Algorithm was chosen!");
+                break;
+            default:
+                System.out.println("no match");
+        }
+
+
+
 
         int score = Scoring.getTotalScoring(FirstSlideShow);
-
-        //TODO criar metodo de output para ficheiro
-        /*System.out.println("TEMPORARY OUTPUT Slideshow:");
-        for (int i = 0; i < FirstSlideShow.size(); i++) {
-            if(FirstSlideShow.get(i).p2==null) {
-                System.out.println(FirstSlideShow.get(i).p1.getIndex());
-            }else{
-                System.out.println(FirstSlideShow.get(i).p1.getIndex().toString() + FirstSlideShow.get(i).p2.getIndex().toString());
-            }
-        }*/
-
+        
         writeInFile(FirstSlideShow);
 
         System.out.println("Score is: " + score);
+    }
+
+    private static ArrayList<Slide> GenerateRandomSlideshow(ArrayList<Slide> slides) {
+
+        ArrayList<Slide> FirstSlideShow = new ArrayList<Slide>();
+        FirstSlideShow.addAll(slides);
+
+        Collections.shuffle(FirstSlideShow);
+
+        return FirstSlideShow;
     }
 
     private static void createSlides() {
