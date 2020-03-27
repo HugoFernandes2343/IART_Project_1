@@ -14,24 +14,23 @@ public class SlideShow {
 
     private static int score;
 
-    public static void main(String[] args) throws Exception
-    {
-        //Call the file reader method
+    public static void main(String[] args) throws Exception {
+        // Call the file reader method
         readFromFile(args[0]);
 
         createSlides();
 
         ArrayList<Slide> firstSlideShow = GenerateRandomSlideshow(slides);
 
-        System.out.println("Choose your algorithm: 1 - Random SlideShow 2 - Greedy Approach 3 - Hill Climbing 4 - Simulated Annealing 5 - Genetic Algorithm");
+        System.out.println(
+                "Choose your algorithm: 1 - Random SlideShow 2 - Greedy Approach 3 - Hill Climbing 4 - Simulated Annealing 5 - Genetic Algorithm");
         System.out.println("The algorithms will print different numbers to know if the optimization is running");
 
         // create a scanner so we can read the command-line input
         Scanner scanner = new Scanner(System.in);
         String alg = scanner.next();
 
-        switch(alg)
-        {
+        switch (alg) {
             case "1":
                 System.out.println("Random SlideShow was chosen!");
                 finalSlideShow = firstSlideShow;
@@ -40,7 +39,7 @@ public class SlideShow {
             case "2":
                 System.out.println("Greedy Approach was chosen!");
                 finalSlideShow = Greedy.greedyApproach(slides);
-                //finalSlideShow = Greedy.greedyApproach(firstSlideShow);
+                // finalSlideShow = Greedy.greedyApproach(firstSlideShow);
                 score = Scoring.getTotalScoring(finalSlideShow);
                 break;
             case "3":
@@ -75,14 +74,15 @@ public class SlideShow {
 
     private static void createSlides() {
 
-        //Horizontal
+        // Horizontal
         for (Photo horizontalPhoto : horizontalPhotos) {
             slides.add(new Slide(horizontalPhoto));
         }
 
         ArrayList<Photo> vPhotos = verticalPhotos;
 
-        //Vertical - done using recursive method to lessen the runtime complexity of the method
+        // Vertical - done using recursive method to lessen the runtime complexity of
+        // the method
         getBestVerticalSlide(vPhotos);
 
     }
@@ -90,46 +90,49 @@ public class SlideShow {
     private static void getBestVerticalSlide(ArrayList<Photo> vPhotos) {
 
         // If there is one or less vertical photos in the array the method ends
-        if(vPhotos.size() <= 1){
+        if (vPhotos.size() <= 1) {
             return;
         }
 
-        //Get the first photo of each run and remove it from the array
+        // Get the first photo of each run and remove it from the array
         Photo p1 = vPhotos.get(0);
         vPhotos.remove(0);
 
-        //number of maximum different tags, is -1 because if it was 0 it would create problems for the recursion stop condition
+        // number of maximum different tags, is -1 because if it was 0 it would create
+        // problems for the recursion stop condition
         int maxDifferentTags = -1;
 
-        //index of the best partner for the current P1
+        // index of the best partner for the current P1
         int bestPartnerIndex = 0;
 
-        //tags of the current p1
+        // tags of the current p1
         ArrayList<String> tagsP1 = p1.getTags();
 
         for (int i = 0; i < vPhotos.size(); i++) {
 
-            //in each iteration of the loop the p2 will be the i index object in the arraylist
+            // in each iteration of the loop the p2 will be the i index object in the
+            // arraylist
             Photo p2 = vPhotos.get(i);
 
-            //calculate the number of different tags between the current p1 and p2
+            // calculate the number of different tags between the current p1 and p2
             int differentTags = p2.getNumberOfDifferentTags(tagsP1);
 
-            // if the current different tags number is hiegher than the max replace the max and change the best partner index
+            // if the current different tags number is hiegher than the max replace the max
+            // and change the best partner index
             if (differentTags > maxDifferentTags) {
                 maxDifferentTags = differentTags;
                 bestPartnerIndex = i;
             }
         }
 
-        //the best partner is turned into p2 and removed from the arraylist
+        // the best partner is turned into p2 and removed from the arraylist
         Photo p2 = vPhotos.get(bestPartnerIndex);
         vPhotos.remove(bestPartnerIndex);
 
-        //a new slide is created
-        slides.add(new Slide(p1,p2));
+        // a new slide is created
+        slides.add(new Slide(p1, p2));
 
-        //sends the array without this iteration of p1 and p2
+        // sends the array without this iteration of p1 and p2
         getBestVerticalSlide(vPhotos);
 
     }
@@ -152,10 +155,10 @@ public class SlideShow {
             Photo p = new Photo(st, i);
             String direc = p.getDirection();
             if (direc.equals("H")) {
-                //Add the photo to the array of horizontal photos of the class
+                // Add the photo to the array of horizontal photos of the class
                 horizontalPhotos.add(p);
             } else {
-                ////Add the photo to the array of vertical photos of the class
+                //// Add the photo to the array of vertical photos of the class
                 verticalPhotos.add(p);
             }
             i++;
@@ -164,10 +167,8 @@ public class SlideShow {
         br.close();
     }
 
-    private static void writeInFile(ArrayList<Slide> Slideshow) throws IOException
-    {
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output.txt"),"utf-8"))) 
-        {
+    private static void writeInFile(ArrayList<Slide> Slideshow) throws IOException {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output.txt"), "utf-8"))) {
             writer.write(String.valueOf(Slideshow.size()) + "\n");
 
             for (Slide slide : Slideshow) {
@@ -175,6 +176,5 @@ public class SlideShow {
             }
         }
     }
-
 
 }
