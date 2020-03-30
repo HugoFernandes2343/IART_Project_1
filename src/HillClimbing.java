@@ -7,33 +7,55 @@ public class HillClimbing {
 
     public static ArrayList<Slide> algorithm(ArrayList<Slide> slides) {
         ArrayList<Slide> nextShow = Operations.shuffleSlideshow(slides);
-        ArrayList<Slide> nextShow2 = Operations.deshuffleSlideshow(slides);
-        
+        ArrayList<Slide> prevShow = Operations.deshuffleSlideshow(slides);
+
         int score = Scoring.getTotalScoring(slides);
         int nextScore = Scoring.getTotalScoring(nextShow);
-        int otherScore = Scoring.getTotalScoring(nextShow2);
+        int prevScore = Scoring.getTotalScoring(prevShow);
+        boolean nothingRight = false;
+        boolean nothingLeft = false;
 
-        System.out.println(score + "\n" + nextScore + "\n" + otherScore + "\n\n");
+        System.out.println(score + "\n" + nextScore + "\n" + prevScore + "\n\n");
 
-        if(score >= otherScore && score < nextScore)
-        {
+        if (score >= prevScore && score < nextScore) {
+            nothingRight = true;
             return algorithm(nextShow);
-        }
-        else if(score < otherScore && score >= nextScore)
-        {
-            return algorithm(nextShow2);
-        }
-        else if(score < otherScore && score < nextScore)
-        {
-            // vai para a direita ou esquerda?
-        }
-        else if(score == otherScore && score == nextScore)
-        {
-            // vai para a direita ou esquerda
+        } else if (score < prevScore && score >= nextScore) {
+            nothingLeft = true;
+            return algorithm(prevShow);
+        } else if (score < prevScore && score < nextScore) {
+            if (prevScore < nextScore) {
+                return algorithm(nextShow);
+            } else {
+                return algorithm(prevShow);
+            }
+        } else if (score == prevScore && score == nextScore) {
+            if (nothingLeft && nothingRight) {
+                return slides;
+            } else if (nothingLeft && !nothingRight) {
+                return algorithm(nextShow);
+            } else if (!nothingLeft && nothingRight) {
+                return algorithm(prevShow);
+            } else {
+                return algorithm(nextShow);
+            }
+        } else if (score == prevScore && score > nextScore) {
+            nothingRight = true;
+            if (!nothingLeft) {
+                return algorithm(prevShow);
+            } else {
+                return slides;
+            }
+        } else if (score > prevScore && score == nextScore) {
+            nothingLeft = true;
+            if (!nothingRight) {
+                return algorithm(nextShow);
+            } else {
+                return slides;
+            }
         }
 
         return slides;
     }
 
-    
 }
