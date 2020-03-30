@@ -23,13 +23,13 @@ public class SlideShow {
         ArrayList<Slide> firstSlideShow = GenerateRandomSlideshow(slides);
 
         System.out.println(
-                "Choose your algorithm: 1 - Random SlideShow 2 - Greedy Approach 3 - Hill Climbing 4 - Simulated Annealing 5 - Genetic Algorithm");
+                "Choose your algorithm:\n\t1 - Random SlideShow\n\t2 - Greedy Approach\n\t3 - Hill Climbing\n\t4 - Simulated Annealing\n\t5 - Genetic Algorithm");
         System.out.println("The algorithms will print different numbers to know if the optimization is running");
 
         // create a scanner so we can read the command-line input
         Scanner scanner = new Scanner(System.in);
         String alg = scanner.next();
-
+        scanner.close();
         switch (alg) {
             case "1":
                 System.out.println("Random SlideShow was chosen!");
