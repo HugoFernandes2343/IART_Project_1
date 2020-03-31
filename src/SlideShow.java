@@ -150,7 +150,7 @@ public class SlideShow {
 
             //progress output
             i++;
-            System.out.println("a new vertical slide was added: " + i + " " + offset);
+            System.out.println("a new vertical slide was added: " + i );
         }
 
         //getBestVerticalSlides(vPhotos, 0);
