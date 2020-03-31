@@ -53,6 +53,22 @@ public class SlideShow {
                 break;
             case "5":
                 System.out.println("Genetic Algorithm was chosen!");
+
+                ArrayList<Slide> random1 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random2 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random3 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random4 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random5 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random6 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random7 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random8 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random9 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random10 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random11 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random12 = GenerateRandomSlideshow(slides);
+
+                finalSlideShow = Genetic.algorithm(random1, random2, random3, random4,random5, random6, random7, random8,random9, random10, random11, random12);
+                score = Scoring.getTotalScoring(finalSlideShow);
                 break;
             default:
                 System.out.println("no match");
