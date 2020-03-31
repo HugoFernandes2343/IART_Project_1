@@ -73,8 +73,18 @@ public class SlideShow {
                 ArrayList<Slide> random10 = GenerateRandomSlideshow(slides);
                 ArrayList<Slide> random11 = GenerateRandomSlideshow(slides);
                 ArrayList<Slide> random12 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random13 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random14 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random15 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random16 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random17 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random18 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random19 = GenerateRandomSlideshow(slides);
+                ArrayList<Slide> random20 = GenerateRandomSlideshow(slides);
 
-                finalSlideShow = Genetic.algorithm(random1, random2, random3, random4,random5, random6, random7, random8,random9, random10, random11, random12);
+                finalSlideShow = Genetic.algorithm(random1, random2, random3, random4, random5, random6, random7,
+                        random8, random9, random10, random11, random12, random13, random14, random15, random16,
+                        random17, random18, random19, random20);
                 score = Scoring.getTotalScoring(finalSlideShow);
                 break;
             default:
