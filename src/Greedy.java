@@ -30,7 +30,7 @@ public class Greedy
             }
 
             slideshow.add(slides.get(nextSlide));
-            
+            System.out.println(slideshow.size());
             slides.remove(nextSlide);
 
         }

@@ -49,6 +49,8 @@ public class SlideShow {
                 break;
             case "4":
                 System.out.println("Simulated Annealing was chosen!");
+                finalSlideShow = SimulatedAnnealing.algorithm(firstSlideShow);
+                score = Scoring.getTotalScoring(finalSlideShow);
                 break;
             case "5":
                 System.out.println("Genetic Algorithm was chosen!");
@@ -74,20 +76,23 @@ public class SlideShow {
 
     private static void createSlides() {
 
-        // Horizontal
+        // Horizontal3
+        int i = 0;
         for (Photo horizontalPhoto : horizontalPhotos) {
             slides.add(new Slide(horizontalPhoto));
+            i++;
+            System.out.println("a new horizontal photo was added: " + i);
         }
 
         ArrayList<Photo> vPhotos = verticalPhotos;
 
         // Vertical - done using recursive method to lessen the runtime complexity of
         // the method
-        getBestVerticalSlide(vPhotos);
+        getBestVerticalSlide(vPhotos, 0);
 
     }
 
-    private static void getBestVerticalSlide(ArrayList<Photo> vPhotos) {
+    private static void getBestVerticalSlide(ArrayList<Photo> vPhotos, int j) {
 
         // If there is one or less vertical photos in the array the method ends
         if (vPhotos.size() <= 1) {
@@ -117,7 +122,7 @@ public class SlideShow {
             // calculate the number of different tags between the current p1 and p2
             int differentTags = p2.getNumberOfDifferentTags(tagsP1);
 
-            // if the current different tags number is hiegher than the max replace the max
+            // if the current different tags number is higher than the max replace the max
             // and change the best partner index
             if (differentTags > maxDifferentTags) {
                 maxDifferentTags = differentTags;
@@ -131,9 +136,11 @@ public class SlideShow {
 
         // a new slide is created
         slides.add(new Slide(p1, p2));
+        j++;
+        System.out.println("a new vertical photo was added:" + j);
 
         // sends the array without this iteration of p1 and p2
-        getBestVerticalSlide(vPhotos);
+        getBestVerticalSlide(vPhotos, j);
 
     }
 
@@ -162,6 +169,7 @@ public class SlideShow {
                 verticalPhotos.add(p);
             }
             i++;
+            System.out.println("read n of lines: " + i);
         }
 
         br.close();
