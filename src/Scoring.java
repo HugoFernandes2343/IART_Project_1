@@ -70,7 +70,7 @@ public class Scoring {
     public static int getTotalScoringRecursive(final ArrayList<Slide> slideshow, final int aux) {
         slideshow2 = (ArrayList) slideshow.clone();
         int temp = 0;
-       // System.out.println(slideshow.size());
+        //System.out.println(slideshow.size());
         temp = aux + calculatePoints(slideshow2.get(0), slideshow2.get(1));
         if (slideshow2.size() > 2) {
             slideshow2.remove(0);

@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.Scanner;
 
 public class SlideShow {
@@ -28,28 +29,34 @@ public class SlideShow {
         // create a scanner so we can read the command-line input
         Scanner scanner = new Scanner(System.in);
         String alg = scanner.next();
+        String name = args[0];
+        String outputFilename= name.split("\\.")[0];
         scanner.close();
         switch (alg) {
             case "1":
                 System.out.println("Random SlideShow was chosen!");
                 finalSlideShow = firstSlideShow;
                 score = Scoring.getTotalScoring(firstSlideShow);
+                outputFilename = outputFilename + "Random_SlideShow.txt";
                 break;
             case "2":
                 System.out.println("Greedy Approach was chosen!");
-                finalSlideShow = Greedy.greedyApproach(slides);
-                // finalSlideShow = Greedy.greedyApproach(firstSlideShow);
+                //finalSlideShow = Greedy.greedyApproach(slides); //with original file input
+                finalSlideShow = Greedy.greedyApproach(firstSlideShow); //with random slideshow
                 score = Scoring.getTotalScoring(finalSlideShow);
+                outputFilename = outputFilename + "Greedy_Approach.txt";
                 break;
             case "3":
                 System.out.println("Hill Climbing was chosen!");
                 finalSlideShow = HillClimbing.algorithm(firstSlideShow);
                 score = Scoring.getTotalScoring(finalSlideShow);
+                outputFilename = outputFilename + "Hill_Climbing.txt";
                 break;
             case "4":
                 System.out.println("Simulated Annealing was chosen!");
                 finalSlideShow = SimulatedAnnealing.algorithm(firstSlideShow);
                 score = Scoring.getTotalScoring(finalSlideShow);
+                outputFilename = outputFilename + "Simulated_Annealing.txt";
                 break;
             case "5":
                 System.out.println("Genetic Algorithm was chosen!");
@@ -74,7 +81,7 @@ public class SlideShow {
                 System.out.println("no match");
         }
 
-        writeInFile(finalSlideShow);
+        writeInFile(finalSlideShow,outputFilename);
 
         System.out.println("Score is: " + score);
     }
@@ -92,22 +99,56 @@ public class SlideShow {
     private static void createSlides() {
 
         // Horizontal3
-        int i = 0;
+        int i = 0;//output variable
         for (Photo horizontalPhoto : horizontalPhotos) {
             slides.add(new Slide(horizontalPhoto));
             i++;
-            System.out.println("a new horizontal photo was added: " + i);
+            System.out.println("a new horizontal slide was added: " + i);
         }
 
-        ArrayList<Photo> vPhotos = verticalPhotos;
+        //temporary way of making the vertical slides, by joining the 2
+        //closest vertical photos
+        /*
+        for (int j = 0; j < verticalPhotos.size(); j+=2) {
+            Photo p1 = verticalPhotos.get(j);
+            Photo p2 = verticalPhotos.get(j+1);
+            slides.add(new Slide(p1,p2));
+            i++;
+            System.out.println("a new vertical slide was added: " + i);
+        }*/
 
-        // Vertical - done using recursive method to lessen the runtime complexity of
-        // the method
-        getBestVerticalSlide(vPhotos, 0);
+        i = 0; //output variable
+        ArrayList<Photo> vPhotos = (ArrayList<Photo>) verticalPhotos.clone();
+        Random r = new Random();
+
+        //create vertical slides
+        while (vPhotos.size()>=1){
+            //first photo will always be at index 0
+            Photo p1 = vPhotos.get(0);
+
+            //determining the second photo based  on a random number
+            int offset = r.nextInt(vPhotos.size());
+            if(offset==0){
+                offset=offset+1;
+            }
+            Photo p2 = vPhotos.get(offset);
+
+            //adding the photos to a slide
+            slides.add(new Slide(p1,p2));
+            vPhotos.remove(offset);
+            vPhotos.remove(0);
+
+            //progress output
+            i++;
+            System.out.println("a new vertical slide was added: " + i + " " + offset);
+        }
+
+        //getBestVerticalSlides(vPhotos, 0);
 
     }
 
-    private static void getBestVerticalSlide(ArrayList<Photo> vPhotos, int j) {
+    //initial method to create vertical slides by greedy approach
+    private static void getBestVerticalSlides(ArrayList<Photo> vPhotos, int j) {
 
         // If there is one or less vertical photos in the array the method ends
         if (vPhotos.size() <= 1) {
@@ -155,7 +196,7 @@ public class SlideShow {
         System.out.println("a new vertical photo was added:" + j);
 
         // sends the array without this iteration of p1 and p2
-        getBestVerticalSlide(vPhotos, j);
+        getBestVerticalSlides(vPhotos, j);
 
     }
 
@@ -195,10 +236,10 @@ public class SlideShow {
     }
 
     // writes information in output file
-    private static void writeInFile(ArrayList<Slide> Slideshow) throws IOException {
+    private static void writeInFile(ArrayList<Slide> Slideshow,String filename) throws IOException {
 
         // creates the output file
-        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output.txt"), "utf-8"))) {
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf-8"))) {
             // writes the number of slides
             writer.write(String.valueOf(Slideshow.size()) + "\n");
 
