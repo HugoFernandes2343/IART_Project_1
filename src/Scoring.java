@@ -14,7 +14,7 @@ public class Scoring {
 
         int common = tags.get(0);
         int uncommon1 = tags.get(1);
-        int uncommon2 = tags1.get(2);
+        int uncommon2 = tags1.get(1);
 
         int score = getMinimumValue(common, uncommon1, uncommon2);
 
@@ -68,6 +68,7 @@ public class Scoring {
     public static int getTotalScoringRecursive(final ArrayList<Slide> slideshow, final int aux) {
         ArrayList<Slide> slideshow2 = (ArrayList) slideshow.clone();
         int temp = 0;
+        System.out.println(slideshow.size());
         temp = aux + calculatePoints(slideshow2.get(0), slideshow2.get(1));
         if (slideshow2.size() > 2) {
             slideshow2.remove(0);
