@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -67,7 +66,7 @@ public class SlideShow {
     private static ArrayList<Slide> GenerateRandomSlideshow(ArrayList<Slide> slides) {
 
         ArrayList<Slide> FirstSlideShow = new ArrayList<Slide>();
-        FirstSlideShow = (ArrayList<Slide>) slides.clone();
+        FirstSlideShow = slides;
 
         Collections.shuffle(FirstSlideShow);
 
@@ -144,6 +143,7 @@ public class SlideShow {
 
     }
 
+    // reads from the input file
     private static void readFromFile(String filename) throws Exception {
 
         File file = new File("input/" + filename);
@@ -151,6 +151,7 @@ public class SlideShow {
 
         BufferedReader br = new BufferedReader(new FileReader(file));
 
+        // Reads the first line of the file
         int numberOfPhotos = Integer.parseInt(br.readLine());
 
         System.out.println("Number of photos = " + numberOfPhotos);
@@ -158,6 +159,8 @@ public class SlideShow {
         int i = 0;
 
         String st;
+
+        // reads line by line until EOF
         while ((st = br.readLine()) != null) {
             Photo p = new Photo(st, i);
             String direc = p.getDirection();
@@ -175,10 +178,15 @@ public class SlideShow {
         br.close();
     }
 
+    // writes information in output file
     private static void writeInFile(ArrayList<Slide> Slideshow) throws IOException {
+
+        // creates the output file
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("output.txt"), "utf-8"))) {
+            // writes the number of slides
             writer.write(String.valueOf(Slideshow.size()) + "\n");
 
+            // writes the id of the photo(s) in each slide
             for (Slide slide : Slideshow) {
                 writer.write(slide.getID() + "\n");
             }

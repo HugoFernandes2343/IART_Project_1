@@ -9,13 +9,13 @@ public class SimulatedAnnealing {
     public static ArrayList<Slide> algorithm(ArrayList<Slide> slides) {
 
         ArrayList<Slide> currentSlideshow = slides;
-        ArrayList<Slide> bestSlideshow = (ArrayList<Slide>) slides.clone();
+        ArrayList<Slide> bestSlideshow = slides;
         int bestScore = Scoring.getTotalScoring(bestSlideshow);
 
         for (double t = temperature; t > 1; t *= coolingFactor) {
 
             //neighbour
-            ArrayList<Slide> neighbourSlideShow = (ArrayList<Slide>) currentSlideshow.clone();
+            ArrayList<Slide> neighbourSlideShow = currentSlideshow;
 
             int index1 = (int) ((neighbourSlideShow.size()-1) * Math.random());
             int index2 = (int) ((neighbourSlideShow.size()-1) * Math.random());
@@ -28,7 +28,7 @@ public class SimulatedAnnealing {
             System.out.println("neighbour score: " + neighbourScore + "current score: " + currentScore);
 
             if (Math.random() > probability(currentScore, neighbourScore, t)){
-                currentSlideshow = (ArrayList<Slide>) neighbourSlideShow.clone();
+                currentSlideshow = neighbourSlideShow;
                 currentScore = neighbourScore;
             }
 
