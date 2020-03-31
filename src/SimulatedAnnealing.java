@@ -26,7 +26,7 @@ public class SimulatedAnnealing {
             int currentScore = Scoring.getTotalScoring(currentSlideshow);
             int neighbourScore = Scoring.getTotalScoring(neighbourSlideShow);
             out++;
-            System.out.println("neighbour score: " + neighbourScore + "current score: " + currentScore + " current iteration: " + out;);
+            System.out.println("neighbour score: " + neighbourScore + "current score: " + currentScore + " current iteration: " + out);
 
             if (bestScore < neighbourScore){
                 bestSlideshow = (ArrayList<Slide>) neighbourSlideShow.clone();
