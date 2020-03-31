@@ -4,7 +4,7 @@ import java.util.Collections;
 
 public class SimulatedAnnealing {
     private static double temperature = 100;
-    private static double coolingFactor = 0.999995;
+    private static double coolingFactor = 0.9999995;
 
     public static ArrayList<Slide> algorithm(ArrayList<Slide> slides) {
 

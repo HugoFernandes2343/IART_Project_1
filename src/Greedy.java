@@ -15,12 +15,20 @@ public class Greedy
         
         slideshow.add(slides.get(0));   //Always start with the first slide
         slides.remove(0);
+        int j = 0;
 
-        for (int j = 0; j < slideshow.size(); j++) {
+        slideshow = recursiveGreedy(slideshow,slides,j);
+
+		return slideshow;
+	}
+
+    private static ArrayList<Slide> recursiveGreedy(ArrayList<Slide> slideshow, ArrayList<Slide> slides, int j) {
+
+            if(slides.size()==0) {
+                return slideshow;
+            }
             int tempScore = 0;
             int nextSlide = 0;
-            if(slides.size()==0)
-                break;
             for (int i = 0; i < slides.size(); i++) {
                 int temp = Scoring.calculatePoints(slideshow.get(j), slides.get(i));
                 if (temp >= tempScore) {
@@ -32,13 +40,9 @@ public class Greedy
             slideshow.add(slides.get(nextSlide));
             System.out.println(slideshow.size());
             slides.remove(nextSlide);
-
-        }
-
-		return slideshow;
-	}
-
-
+            j++;
+            return recursiveGreedy(slideshow,slides,j);
+    }
 
 
 }
